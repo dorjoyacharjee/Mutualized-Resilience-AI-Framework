@@ -144,7 +144,7 @@ climate-agricultural-insurance-ai/
 ## Questions?
 
 - Open a discussion in GitHub Discussions
-- Email: [your-email@institution.edu]
+- Email: dorjoy.acharjee@northsouth.edu
 
 ## License
 
