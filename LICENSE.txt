@@ -40,25 +40,23 @@ Users must comply with all applicable data licenses when using this software.
 ## Citation
 
 If you use this software in your research, please cite:
-
-```bibtex
-@article{yourlastname2025climate,
+to be updated
   title={From Meta-Risk to Mutualized Resilience: An Integrated AI Framework for Climate-Adaptive Agricultural Insurance},
-  author={Your Name and Co-Authors},
+  author={Dorjoy Acharjee},
   journal={Journal Name},
   year={2025},
-  publisher={Publisher}
+
 }
 ```
 
 and cite the software repository:
 
 ```bibtex
-@software{yourlastname2025framework,
-  author={Your Name},
-  title={Climate-Adaptive Agricultural Insurance AI Framework},
+@software{acharjee2025framework},
+  author= {Dorjoy Acharjee},
+  title={Mutualized-Resilience-AI-Framework},
   year={2025},
-  url={https://github.com/yourusername/climate-agricultural-insurance-ai},
+  url={https://github.com/dorjoyacharjee/Mutualized-Resilience-AI-Framework},
   version={1.0.0}
 }
 ```
