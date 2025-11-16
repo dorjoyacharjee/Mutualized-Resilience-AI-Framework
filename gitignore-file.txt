@@ -1,0 +1,110 @@
+# .gitignore for Climate-Adaptive Agricultural Insurance AI Framework
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+.env.local
+*.key
+*.pem
+
+# Data files (too large for git)
+data/raw/**/*.nc
+data/raw/**/*.tif
+data/raw/**/*.zip
+data/raw/**/*.h5
+data/processed/**/*.nc
+data/processed/**/*.npy
+data/external/**/*.csv
+
+# Keep directory structure but ignore contents
+data/raw/**
+!data/raw/.gitkeep
+data/processed/**
+!data/processed/.gitkeep
+data/external/**
+!data/external/.gitkeep
+
+# Model files (large binary)
+outputs/models/**/*.h5
+outputs/models/**/*.pkl
+outputs/models/**/*.json
+outputs/models/**/*.joblib
+
+# Logs
+logs/**/*.log
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Documentation build
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# Test coverage
+htmlcov/
+.coverage
+.coverage.*
+.cache
+coverage.xml
+*.cover
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmyp.json
+
+# Pytest
+.pytest_cache/
+
+# API keys and credentials (NEVER COMMIT)
+**/credentials.json
+**/service-account*.json
+**/*_key.json
+**/*_secret.txt
+config_prod.yaml

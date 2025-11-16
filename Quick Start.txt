@@ -1,0 +1,16 @@
+# 1. Download data (requires API keys in config.yaml)
+python src/data_acquisition/cmip6_downloader.py
+python src/data_acquisition/era5_downloader.py
+python src/data_acquisition/sentinel_processor.py
+
+# 2. Preprocess data
+python src/preprocessing/climate_preprocessor.py
+python src/preprocessing/satellite_preprocessor.py
+
+# 3. Train models
+python src/models/mrep_model.py --train
+python src/models/ham_model.py --train
+python src/models/sfm_model.py --train
+
+# 4. Run full pipeline
+python main_pipeline.py --config config.yaml

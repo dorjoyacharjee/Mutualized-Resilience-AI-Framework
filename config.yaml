@@ -1,0 +1,145 @@
+# Configuration for Climate-Adaptive Agricultural Insurance AI Framework
+
+# API Keys and Credentials (use environment variables in production)
+api_credentials:
+  cds_api_key: ${CDS_API_KEY}  # Copernicus Climate Data Store
+  cds_api_url: "https://cds.climate.copernicus.eu/api/v2"
+  gee_service_account: ${GEE_SERVICE_ACCOUNT}  # Google Earth Engine
+  gee_private_key: ${GEE_PRIVATE_KEY}
+
+# Data acquisition settings
+data_sources:
+  cmip6:
+    url: "https://cds.climate.copernicus.eu/api/v2"
+    scenario: "ssp3-7.0"  # High emissions scenario
+    models: ["CMCC-CM2-SR5", "CESM2", "ACCESS-ESM1-5"]
+    variables: ["tas", "pr", "tasmax", "tasmin"]
+    temporal_range: ["2025-01-01", "2100-12-31"]
+    spatial_bounds: [20, 87, 27, 93]  # Bangladesh bbox [S, W, N, E]
+    
+  era5:
+    url: "https://cds.climate.copernicus.eu/api/v2"
+    product: "reanalysis-era5-single-levels"
+    variables: ["2m_temperature", "total_precipitation", "10m_u_wind", "10m_v_wind"]
+    temporal_range: ["1979-01-01", "2023-12-31"]
+    spatial_bounds: [20, 87, 27, 93]
+    
+  sentinel1:
+    source: "aws"  # or "gee", "scihub"
+    product_type: "GRD"  # Ground Range Detected
+    polarization: ["VV", "VH"]
+    orbit: "DESCENDING"
+    resolution: 10  # meters
+    
+  sentinel2:
+    source: "aws"
+    product_level: "L2A"  # Surface Reflectance
+    cloud_cover_max: 20  # percent
+    bands: ["B2", "B3", "B4", "B8", "B11", "B12"]  # RGB, NIR, SWIR
+    resolution: 10
+    
+  faostat:
+    url: "https://www.fao.org/faostat/en/#data"
+    domains: ["QCL", "PP", "FBS"]  # Crops, Prices, Food Balance
+    elements: ["Yield", "Production", "Area", "Price"]
+    countries: ["Bangladesh", "India"]
+    years: [1961, 2023]
+    
+  bangladesh_bbs:
+    # Manual download required - place files in data/external/
+    sources:
+      - "http://nsds.bbs.gov.bd/en/domains/1/Agriculture"
+      - "http://data.gov.bd/dataset/agriculture-census-2008"
+    note: "Download CSV files manually and place in data/external/bbs/"
+
+# Preprocessing parameters
+preprocessing:
+  climate:
+    temporal_aggregation: "monthly"
+    spatial_resolution: 0.25  # degrees (~25km)
+    interpolation: "bilinear"
+    anomaly_baseline: [1990, 2020]
+    
+  satellite:
+    tile_size: 64  # pixels for CNN input
+    normalization: "minmax"  # or "standardize"
+    augmentation: true
+    filters:
+      sar_speckle: "lee"  # Lee filter for SAR denoising
+      cloud_masking: true
+
+# Model architectures
+models:
+  mrep:
+    lstm:
+      layers: [128, 64, 32]
+      dropout: 0.2
+      sequence_length: 60  # months (5 years)
+      batch_size: 32
+      epochs: 100
+      learning_rate: 0.001
+      early_stopping_patience: 15
+      
+    xgboost:
+      max_depth: 6
+      learning_rate: 0.05
+      n_estimators: 500
+      min_child_weight: 3
+      subsample: 0.8
+      colsample_bytree: 0.8
+      objective: "binary:logistic"
+      
+  ham:
+    architecture: "unet"  # U-Net CNN
+    encoder_filters: [64, 128, 256, 512]
+    decoder_filters: [256, 128, 64, 32]
+    input_shape: [64, 64, 3]  # H, W, Channels
+    output_classes: 3  # healthy, flood-damaged, drought-stressed
+    activation: "relu"
+    final_activation: "softmax"
+    loss: "categorical_crossentropy"
+    metrics: ["accuracy", "iou", "f1_score"]
+    batch_size: 16
+    epochs: 80
+    learning_rate: 0.0001
+    
+  sfm:
+    lstm:
+      layers: [128, 64, 32]
+      dropout: 0.2
+      sequence_length: 60
+      outputs: 2  # liabilities, premium_inflows
+      
+    xgboost:
+      max_depth: 5
+      learning_rate: 0.03
+      n_estimators: 500
+      objective: "binary:logistic"  # solvency classification
+      
+# Training parameters
+training:
+  validation_split: 0.15
+  test_split: 0.15
+  random_seed: 42
+  cross_validation_folds: 5
+  gpu_enabled: true
+  mixed_precision: true  # For faster training
+  
+# Output paths
+paths:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  data_external: "data/external"
+  models: "outputs/models"
+  figures: "outputs/figures"
+  reports: "outputs/reports"
+  logs: "logs"
+  
+# Regional settings
+region:
+  name: "Bangladesh"
+  bbox: [20.0, 87.0, 27.0, 93.0]  # [S, W, N, E]
+  crs: "EPSG:4326"
+  divisions: ["Khulna", "Sylhet", "Barisal", "Rajshahi", "Dhaka", "Chittagong", "Rangpur"]
+  flood_zones: ["Khulna", "Sylhet", "Barisal"]
+  drought_zones: ["Rajshahi", "Bogra"]

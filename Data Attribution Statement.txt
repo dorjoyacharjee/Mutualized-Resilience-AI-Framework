@@ -1,0 +1,11 @@
+All research data used in this implementation is sourced from public repositories.
+The authors do not own or control the raw data. Each data source has its own
+license and usage terms that must be followed:
+
+- CMIP6: Free for research, cite WCRP CMIP6 (https://wcrp-cmip.org/cmip6/)
+- ERA5: Copernicus License (https://cds.climate.copernicus.eu/api/v2-terms-of-use)
+- Sentinel-1/2: ESA Copernicus Open Access (https://scihub.copernicus.eu/twiki/do/view/SciHubWebPortal/TermsConditions)
+- FAOSTAT: CC BY-NC-SA 3.0 IGO (https://www.fao.org/contact-us/terms/en/)
+- Bangladesh BBS: Government Open Data (http://data.gov.bd/terms-of-use)
+
+Please cite all data sources according to their respective attribution requirements.

@@ -1,0 +1,38 @@
+# 1. Setup environment
+git clone <repository>
+cd climate-agricultural-insurance-ai
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# 2. Configure credentials
+cp .env.example .env
+# Edit .env with your API keys
+
+# 3. Download data (requires ~100GB disk space)
+python src/data_acquisition/cmip6_downloader.py
+python src/data_acquisition/era5_downloader.py
+python src/data_acquisition/sentinel_processor.py
+python src/data_acquisition/fao_scraper.py
+
+# NOTE: For Bangladesh BBS data, manually download from:
+# http://data.gov.bd/dataset/agriculture-census-2008
+# Place CSV files in data/external/bbs/
+
+# 4. Preprocess data
+python src/preprocessing/climate_preprocessor.py
+python src/preprocessing/satellite_preprocessor.py
+
+# 5. Train models
+python src/models/mrep_model.py --mode train
+python src/models/ham_model.py --mode train
+python src/models/sfm_model.py --mode train
+
+# 6. Run evaluation
+python src/evaluation/model_validator.py
+
+# 7. Generate paper figures
+python src/visualization/plots.py
+
+# OR run entire pipeline
+python main_pipeline.py --config config.yaml

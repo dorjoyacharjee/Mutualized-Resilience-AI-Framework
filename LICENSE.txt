@@ -1,0 +1,64 @@
+# MIT License
+
+Copyright (c) 2025 [Dorjoy Acharjee / North South university]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Data License Notice
+
+This software uses data from multiple third-party sources, each with their own licenses:
+
+1. **CMIP6 Climate Data**: Copernicus License (free for research with attribution)
+2. **ERA5 Reanalysis**: Copernicus License  
+3. **Sentinel-1/2 Imagery**: ESA Copernicus Open Access
+4. **FAOSTAT**: CC BY-NC-SA 3.0 IGO
+5. **Bangladesh Bureau of Statistics**: Government Open Data
+6. **Munich Re / Swiss Re**: Publicly available summaries used
+
+Users must comply with all applicable data licenses when using this software.
+
+---
+
+## Citation
+
+If you use this software in your research, please cite:
+
+```bibtex
+@article{yourlastname2025climate,
+  title={From Meta-Risk to Mutualized Resilience: An Integrated AI Framework for Climate-Adaptive Agricultural Insurance},
+  author={Your Name and Co-Authors},
+  journal={Journal Name},
+  year={2025},
+  publisher={Publisher}
+}
+```
+
+and cite the software repository:
+
+```bibtex
+@software{yourlastname2025framework,
+  author={Your Name},
+  title={Climate-Adaptive Agricultural Insurance AI Framework},
+  year={2025},
+  url={https://github.com/yourusername/climate-agricultural-insurance-ai},
+  version={1.0.0}
+}
+```
